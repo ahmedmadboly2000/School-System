@@ -33,5 +33,14 @@ const knex = require('knex')({
           if (!student) return { success: false,error:'student deos not exist' }
          return { success: true,student }
         })
-    }
+    },
+    updateStudent ({ id,name,class_id }) {
+        
+      return knex('student')
+      .whereIn('id',[id])
+      .update({name,class_id})
+      .then(()=>{
+      return { success: true }
+       })
+}
   }

@@ -164,6 +164,26 @@ app.post('/createUser', (req, res) => {
             console.log("success")
     })
   })
+  app.post('/student/updateStudent', (req, res) => {
+   
+    student
+      .updateStudent({
+        id: req.body.id,
+        name: req.body.name,
+        class_id:req.body.class_id
+      })
+      .then(({success}) => {
+        if (success){
+            res.status(200).json({message:"updated successfully"});
+            console.log("success update")
+        } 
+        else {
+            res.status(401).json({message:"student is not found"});
+            console.log(err)
+
+      }
+    })
+  })
   app.post('/class/createClass', (req, res) => {
    
     _class
@@ -215,6 +235,28 @@ app.post('/createUser', (req, res) => {
         
             res.status(200).json({message});
             console.log("success")
+    })
+  })
+  app.post('/class/updateClass', (req, res) => {
+   
+    _class
+      .updateClass({
+        id: req.body.id,
+        name: req.body.name,
+        location:req.body.location,
+        subject: req.body.subject,
+        session_time:req.body.session_time
+      })
+      .then(({success}) => {
+        if (success){
+            res.status(200).json({message:"updated successfully"});
+            console.log("success update")
+        } 
+        else {
+            res.status(401).json({message:"class is not found"});
+            console.log(err)
+
+      }
     })
   })
 

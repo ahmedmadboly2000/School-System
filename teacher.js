@@ -35,8 +35,8 @@ const knex = require('knex')({
          return { success: true,teacher }
         })
     },
-    updateTeacher ({ id,name,subject,class_id  }) {
-         
+    updateTeacher ({ id,name,subject,class_id }) {
+        
         return knex('teacher')
         .whereIn('id',[id])
         .update({name,subject,class_id})
