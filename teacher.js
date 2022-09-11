@@ -36,12 +36,23 @@ const knex = require('knex')({
         })
     },
     updateTeacher ({ id,name,subject,class_id }) {
-        
-        return knex('teacher')
-        .whereIn('id',[id])
-        .update({name,subject,class_id})
-        .then(()=>{
-        return { success: true }
-         })
-  }
+      return knex('teacher')
+        .where('id', id)
+        .then(([row]) => {
+            if (!row) {
+                return { success: false,error:'teacher deos not exist' }
+             }
+      return knex('teacher')
+        .where('id', row.id)
+        .update(
+          {
+            name,
+            subject,
+            class_id
+         }
+          ).then(()=>{
+            return { success: true }
+          })
+    });
+    } 
 }

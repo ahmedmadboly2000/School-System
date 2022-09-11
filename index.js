@@ -99,7 +99,7 @@ app.post('/createUser', (req, res) => {
         subject: req.body.subject,
         class_id:req.body.class_id
       })
-      .then(({success}) => {
+      .then(({success,err}) => {
         if (success){
             res.status(200).json({message:"updated successfully"});
             console.log("success update")
@@ -172,7 +172,7 @@ app.post('/createUser', (req, res) => {
         name: req.body.name,
         class_id:req.body.class_id
       })
-      .then(({success}) => {
+      .then(({success,err}) => {
         if (success){
             res.status(200).json({message:"updated successfully"});
             console.log("success update")
@@ -247,7 +247,7 @@ app.post('/createUser', (req, res) => {
         subject: req.body.subject,
         session_time:req.body.session_time
       })
-      .then(({success}) => {
+      .then(({success,err}) => {
         if (success){
             res.status(200).json({message:"updated successfully"});
             console.log("success update")
