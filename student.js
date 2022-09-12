@@ -52,5 +52,31 @@ const knex = require('knex')({
           return { success: true }
         })
   });
-  } 
+  },
+  studentsInClass ({ class_id  }) {
+    return knex('student')
+    .where('class_id', class_id)
+    .then(([row]) => {
+      if (!row) {
+        return { success: false,error:'student deos not exist' }
+      }
+      return knex('student')
+      .select()
+      .where('class_id', row.class_id)
+      .then((students)=> {
+        let name=[];
+          students.forEach(student => {
+          return name.push(student.name)
+        });;
+        return { success: true,name }
+      });
+    })
+
+    // return knex('student').where({ class_id })
+    // .then(([student]) => {
+    //   if (!student) return { success: false,error:'student deos not exist' }
+    //  return { success: true,student }
+    // })
+  }
 }
+  
