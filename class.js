@@ -7,12 +7,13 @@ const knex = require('knex')({
     }
   })
   module.exports = {
-    createClass ({ name,location,subject,session_time }) {
+    createClass ({ name,location,subject,session_time,teacher_id }) {
         return knex('class').insert({
           name,
           location,
           subject,
-          session_time
+          session_time,
+          teacher_id
     }).then(()=>{
         return { success: true }
     })
@@ -36,7 +37,7 @@ const knex = require('knex')({
          return { success: true,_class }
         })
     },
-    updateClass ({ id,name,location,subject,session_time }) {
+    updateClass ({ id,name,location,subject,session_time,teacher_id }) {
       return knex('class')
         .where('id', id)
         .then(([row]) => {
@@ -50,11 +51,31 @@ const knex = require('knex')({
             name,
             location,
             subject,
-            session_time
+            session_time,
+            teacher_id
          }
           ).then(()=>{
             return { success: true }
           })
     });
+    },
+    allClassesOfTeacher ({ teacher_id  }) {
+      return knex('class')
+      .where('teacher_id', teacher_id)
+      .then(([row]) => {
+        if (!row) {
+          return { success: false,error:'class deos not exist' }
+        }
+        return knex('class')
+        .select()
+        .where('teacher_id', row.teacher_id)
+        .then((classes)=> {
+          let name=[];
+            classes.forEach(_class => {
+            return name.push(_class.name)
+          });;
+          return { success: true,name }
+        });
+      })
     } 
   }
