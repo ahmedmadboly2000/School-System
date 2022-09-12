@@ -191,7 +191,8 @@ app.post('/createUser', (req, res) => {
         name: req.body.name,
         location:req.body.location,
         subject: req.body.subject,
-        session_time:req.body.session_time
+        session_time:req.body.session_time,
+        teacher_id:req.body.teacher_id
       })
       .then(({success}) => {
         if (success){
@@ -245,7 +246,8 @@ app.post('/createUser', (req, res) => {
         name: req.body.name,
         location:req.body.location,
         subject: req.body.subject,
-        session_time:req.body.session_time
+        session_time:req.body.session_time,
+        teacher_id:req.body.teacher_id
       })
       .then(({success,err}) => {
         if (success){
@@ -256,6 +258,44 @@ app.post('/createUser', (req, res) => {
             res.status(401).json({message:"class is not found"});
             console.log(err)
 
+      }
+    })
+  })
+  app.post('/student/allStudentInClass', (req, res) => {
+   
+    student
+      .studentsInClass({
+        class_id: req.body.class_id
+      }
+      )
+      .then(({success,error,name}) => {
+        if (success){
+            
+            res.status(200).json({name});
+            console.log("success")
+        } 
+        else {
+            res.status(401).json({error})
+            console.log(error)
+      }
+    })
+  })
+  app.post('/class/allClassesOfTeacher', (req, res) => {
+   
+    _class
+      .allClassesOfTeacher({
+        teacher_id: req.body.teacher_id
+      }
+      )
+      .then(({success,error,name}) => {
+        if (success){
+            
+            res.status(200).json({name});
+            console.log("success")
+        } 
+        else {
+            res.status(401).json({error})
+            console.log(error)
       }
     })
   })
