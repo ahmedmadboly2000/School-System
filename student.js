@@ -22,12 +22,6 @@ const knex = require('knex')({
             return{success: false,error:'student is exist' }
            }
           })
-    //     return knex('student').insert({
-    //       name,
-    //       class_id
-    // }).then(()=>{
-    //     return { success: true }
-    // })
     },
     deleteStudent({id}) {
       return knex('student')
