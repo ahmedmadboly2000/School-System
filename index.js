@@ -46,13 +46,13 @@ app.post('/createUser', (req, res) => {
         subject: req.body.subject,
         class_id:req.body.class_id
       })
-      .then(({success}) => {
+      .then(({success,err}) => {
         if (success){
-            res.sendStatus(200);
+          res.status(200).json({message:"teacher created successfull"});
             console.log("success add")
         } 
         else {
-            res.sendStatus(401)
+          res.status(401).json({message:"teacher is already exist"});
             console.log(err)
 
       }
@@ -122,13 +122,13 @@ app.post('/createUser', (req, res) => {
         name: req.body.name,
         class_id:req.body.class_id
       })
-      .then(({success}) => {
+      .then(({success,err}) => {
         if (success){
-            res.sendStatus(200);
+            res.status(200).json({message:"student created successfull"});
             console.log("success add")
         } 
         else {
-            res.sendStatus(401)
+            res.status(401).json({message:"student is already exist"});
             console.log(err)
 
       }
@@ -202,13 +202,13 @@ app.post('/createUser', (req, res) => {
         session_time:req.body.session_time,
         teacher_id:req.body.teacher_id
       })
-      .then(({success}) => {
+      .then(({success,err}) => {
         if (success){
-            res.sendStatus(200);
+          res.status(200).json({message:"class created successfull"});
             console.log("success add")
         } 
         else {
-            res.sendStatus(401)
+          res.status(401).json({message:"class is already exist"});
             console.log(err)
 
       }

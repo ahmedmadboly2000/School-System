@@ -8,12 +8,26 @@ const knex = require('knex')({
   })
   module.exports = {
     createStudent ({ name,class_id }) {
-        return knex('student').insert({
-          name,
-          class_id
-    }).then(()=>{
-        return { success: true }
-    })
+      return knex('student')
+      .where('name', name)
+      .then(([row]) => {
+          if (!row) {
+            return knex('student').insert({
+                    name,
+                    class_id
+              }).then(()=>{
+                  return { success: true,message:"student created successfully" }
+              })
+           }else{
+            return{success: false,error:'student is exist' }
+           }
+          })
+    //     return knex('student').insert({
+    //       name,
+    //       class_id
+    // }).then(()=>{
+    //     return { success: true }
+    // })
     },
     deleteStudent({id}) {
       return knex('student')

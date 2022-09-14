@@ -8,15 +8,23 @@ const knex = require('knex')({
   })
   module.exports = {
     createClass ({ name,location,subject,session_time,teacher_id }) {
-        return knex('class').insert({
-          name,
-          location,
-          subject,
-          session_time,
-          teacher_id
-    }).then(()=>{
-        return { success: true }
-    })
+        return knex('class')
+        .where('name', name)
+        .then(([row]) => {
+            if (!row) {
+              return knex('class').insert({
+                      name,
+                      location,
+                      subject,
+                      session_time,
+                      teacher_id
+                }).then(()=>{
+                    return { success: true,message:"class created successfully" }
+                })
+             }else{
+              return{success: false,error:'class is already exist' }
+             }
+            })
     },
     deleteClass({id}) {
       return knex('class')
