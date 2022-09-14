@@ -17,15 +17,21 @@ const knex = require('knex')({
     })
     },
     deleteTeacher({id}) {
+      return knex('teacher')
+      .where('id', id)
+      .then(([row]) => {
+          if (!row) {
+              return { success: false,error:'teacher deos not exist' }
+           }
          return knex("teacher")
           .del()
           .where({
             id
         }).then((data)=>{
               console.log(data);
-              return { message:"teacher deleted successfully"}
+              return { success: true,message:"teacher deleted successfully"}
         });
-      
+      })
       },
       teacherById ({ id  }) {
         

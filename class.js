@@ -19,15 +19,21 @@ const knex = require('knex')({
     })
     },
     deleteClass({id}) {
+      return knex('class')
+      .where('id', id)
+      .then(([row]) => {
+          if (!row) {
+              return { success: false,error:'class deos not exist' }
+           }
          return knex("class")
           .del()
           .where({
             id
         }).then((data)=>{
               console.log(data);
-              return { message:"class deleted successfully"}
+              return {success: true, message:"class deleted successfully"}
         });
-      
+      })
       },
       classById ({ id  }) {
         

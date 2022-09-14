@@ -16,15 +16,22 @@ const knex = require('knex')({
     })
     },
     deleteStudent({id}) {
-         return knex("student")
-          .del()
-          .where({
-            id
-        }).then((data)=>{
-              console.log(data);
-              return { message:"student deleted successfully"}
-        });
-      
+      return knex('student')
+      .where('id', id)
+      .then(([row]) => {
+          if (!row) {
+              return { success: false,error:'student deos not exist' }
+           }else{
+            return knex("student")
+           .del()
+           .where({
+             id
+         }).then((data)=>{
+               console.log(data);
+               return {success:true, message:"student deleted successfully"}
+         });}
+       
+      })
       },
       studentById ({ id  }) {
         
@@ -72,11 +79,6 @@ const knex = require('knex')({
       });
     })
 
-    // return knex('student').where({ class_id })
-    // .then(([student]) => {
-    //   if (!student) return { success: false,error:'student deos not exist' }
-    //  return { success: true,student }
-    // })
   }
 }
   

@@ -84,10 +84,14 @@ app.post('/createUser', (req, res) => {
         id: req.body.id
       }
       )
-      .then(({message}) => {
-        
+      .then(({message,success,err}) => {
+        if (success){
             res.status(200).json({message});
             console.log("success")
+        }else{
+          res.status(401).json({message:"teacher is not found"});
+            console.log(err)
+        }
     })
   })
   app.post('/teacher/updateTeacher', (req, res) => {
@@ -158,10 +162,14 @@ app.post('/createUser', (req, res) => {
         id: req.body.id
       }
       )
-      .then(({message}) => {
-
-            res.status(200).json({message});
+      .then(({success,err}) => {
+        if (success){
+            res.status(200).json({message:"student was deletes successfully"});
             console.log("success")
+        }else{
+          res.status(401).json({message:"student is not found"});
+            console.log(err)
+        }
     })
   })
   app.post('/student/updateStudent', (req, res) => {
@@ -232,10 +240,14 @@ app.post('/createUser', (req, res) => {
         id: req.body.id
       }
       )
-      .then(({message}) => {
-        
-            res.status(200).json({message});
+      .then(({message,success,err}) => {
+        if (success){
+            res.status(200).json({message:"class was deletes successfully"});
             console.log("success")
+        }else{
+          res.status(401).json({message:"class is not found"});
+            console.log(err)
+        }
     })
   })
   app.post('/class/updateClass', (req, res) => {
